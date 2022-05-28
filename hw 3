@@ -1,0 +1,78 @@
+--HOMEWORK 3
+
+--Q 1
+
+select first_name, last_name
+from customer 
+full join address
+on customer.address_id = address.address_id
+where district ='Texas'
+
+--Q2
+
+select first_name, last_name, amount 
+from customer
+full join payment
+on customer.customer_id = payment.customer_id 
+where amount > 6.99;
+
+--Q3
+
+select first_name , last_name
+from customer
+where customer_id in (
+  select customer_id
+  from payment 
+  group by customer_id 
+  having sum(amount) > 175
+  order by sum(amount) desc);
+ 
+ --Q4 
+SELECT customer.first_name,customer.last_name,customer.email,country
+FROM customer
+INNER JOIN address
+ON customer.address_id = address.address_id  
+INNER JOIN city
+ON address.city_id = city.city_id
+INNER JOIN country
+ON city.country_id = country.country_id
+WHERE country = 'Nepal';
+
+
+ --Q5 IT SHOWS THE ONE WITH MOST SALES
+ 
+
+select staff.staff_id, staff.first_name, staff.last_name 
+from staff
+inner join rental
+on rental.staff_id = staff.staff_id 
+group by staff.staff_id 
+
+
+
+--Q6 there are 5 movies
+
+select rating, count(rating)
+from film 
+group by rating
+
+
+--Q7
+
+select *
+from customer
+where customer_id in ( 
+select customer_id 
+from payment
+where amount > 6.99
+);
+
+--Q8 23 times 
+
+select amount, count(amount)
+from payment 
+group by amount
+having amount = 0
+
+
+
